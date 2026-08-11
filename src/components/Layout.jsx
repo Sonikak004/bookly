@@ -106,10 +106,14 @@ const MobileBottomBar = () => {
                 : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'}
             `}
           >
-            <div className={`p-1.5 rounded-xl mb-1 transition-colors ${isActive ? 'bg-rose-50 dark:bg-rose-500/15' : 'bg-transparent'}`}>
-              <item.icon size={22} strokeWidth={isActive ? 2.5 : 2} />
-            </div>
-            <span className="text-[10px] font-semibold">{item.name}</span>
+            {({ isActive }) => (
+              <>
+                <div className={`p-1.5 rounded-xl mb-1 transition-colors ${isActive ? 'bg-rose-50 dark:bg-rose-500/15' : 'bg-transparent'}`}>
+                  <item.icon size={22} strokeWidth={isActive ? 2.5 : 2} />
+                </div>
+                <span className="text-[10px] font-semibold">{item.name}</span>
+              </>
+            )}
           </NavLink>
         ))}
       </div>
