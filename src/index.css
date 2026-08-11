@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: var(--color-violet-600);
-  --color-primary-hover: var(--color-violet-700);
+  --color-primary: var(--color-rose-600);
+  --color-primary-hover: var(--color-rose-700);
   
   --font-sans: "Inter", "Outfit", sans-serif;
 }
@@ -40,10 +40,10 @@
   @apply font-sans;
 }
 .rbc-event {
-  @apply bg-violet-600 rounded-md shadow-sm border-none;
+  @apply bg-rose-600 rounded-md shadow-sm border-none;
 }
 .dark .rbc-event {
-  @apply bg-violet-500;
+  @apply bg-rose-500;
 }
 .rbc-today {
   @apply bg-slate-100 dark:bg-slate-800;
@@ -67,5 +67,5 @@
   @apply text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-600;
 }
 .rbc-btn-group button.rbc-active {
-  @apply bg-violet-50 dark:bg-violet-900/20 text-violet-700 dark:text-violet-400 shadow-none hover:bg-violet-100 dark:hover:bg-violet-900/40;
+  @apply bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-400 shadow-none hover:bg-rose-100 dark:hover:bg-rose-900/40;
 }

@@ -148,7 +148,7 @@ const Reports = () => {
           <select 
             value={dateFilter}
             onChange={(e) => setDateFilter(e.target.value)}
-            className="flex-1 sm:flex-none border border-slate-300 dark:border-slate-600 rounded-lg px-4 py-2 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-violet-500"
+            className="flex-1 sm:flex-none border border-slate-300 dark:border-slate-600 rounded-lg px-4 py-2 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-rose-500"
           >
             <option>Today</option>
             <option>This Week</option>
@@ -157,7 +157,7 @@ const Reports = () => {
           </select>
           <button 
             onClick={exportCSV}
-            className="bg-violet-600 hover:bg-violet-700 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2"
+            className="bg-rose-600 hover:bg-rose-700 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2"
           >
             <Download size={20} />
             <span className="hidden sm:inline">Export CSV</span>
@@ -166,7 +166,7 @@ const Reports = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <StatCard title="Total Appointments" value={stats.totalAppointments} icon={CalendarCheck} colorClass="bg-violet-100 text-violet-600 dark:bg-violet-500/20 dark:text-violet-400" />
+        <StatCard title="Total Appointments" value={stats.totalAppointments} icon={CalendarCheck} colorClass="bg-rose-100 text-rose-600 dark:bg-rose-500/20 dark:text-rose-400" />
         <StatCard title="Completed" value={stats.completedCount} icon={CheckCircle} colorClass="bg-emerald-100 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400" />
         <StatCard title="Total Revenue" value={formatCurrency(stats.totalRevenue)} icon={IndianRupee} colorClass="bg-amber-100 text-amber-600 dark:bg-amber-500/20 dark:text-amber-400" />
         <StatCard title="Cancelled" value={stats.cancelledCount} icon={Ban} colorClass="bg-red-100 text-red-600 dark:bg-red-500/20 dark:text-red-400" />
@@ -189,7 +189,7 @@ const Reports = () => {
                     return (
                       <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-lg shadow-lg">
                         <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">{payload[0].payload.name}</p>
-                        <p className="font-bold text-violet-600 dark:text-violet-400 mb-1">{formatCurrency(payload[0].value)}</p>
+                        <p className="font-bold text-rose-600 dark:text-rose-400 mb-1">{formatCurrency(payload[0].value)}</p>
                         <p className="text-xs text-slate-500">{payload[0].payload.appointments} appointments</p>
                       </div>
                     );
@@ -207,7 +207,7 @@ const Reports = () => {
         {/* Service Performance */}
         <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden flex flex-col">
           <div className="p-5 border-b border-slate-200 dark:border-slate-700 flex items-center gap-2">
-            <Sparkles size={20} className="text-violet-500" />
+            <Sparkles size={20} className="text-rose-500" />
             <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Service Performance</h3>
           </div>
           <div className="overflow-x-auto">
@@ -237,7 +237,7 @@ const Reports = () => {
         {/* Staff Performance */}
         <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden flex flex-col">
           <div className="p-5 border-b border-slate-200 dark:border-slate-700 flex items-center gap-2">
-            <UserCircle size={20} className="text-violet-500" />
+            <UserCircle size={20} className="text-rose-500" />
             <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Staff Performance</h3>
           </div>
           <div className="overflow-x-auto">

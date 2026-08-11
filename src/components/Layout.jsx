@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Outlet, NavLink } from 'react-router-dom';
 import { 
   LayoutDashboard, 
@@ -9,9 +9,7 @@ import {
   UserCircle,
   BarChart3, 
   Settings as SettingsIcon,
-  Menu,
-  CalendarCheck2,
-  X
+  CalendarCheck2
 } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 
@@ -25,16 +23,16 @@ const DemoBanner = () => {
   };
 
   return (
-    <div className="bg-violet-600 text-white px-4 py-2 text-sm font-medium flex justify-between items-center z-50 relative">
+    <div className="bg-rose-600 text-white px-4 py-2.5 text-sm font-medium flex justify-between items-center z-50 relative shadow-md">
       <div>
         <span className="hidden sm:inline">DEMO MODE — </span>
         You're exploring a sample Bookly account.
       </div>
       <button 
         onClick={handleReset}
-        className="bg-white/20 hover:bg-white/30 transition-colors px-3 py-1 rounded text-xs font-semibold"
+        className="bg-white/20 hover:bg-white/30 active:scale-95 transition-all duration-200 px-4 py-1.5 rounded-full text-xs font-semibold shadow-sm backdrop-blur-sm"
       >
-        Reset Demo Data
+        Reset Demo
       </button>
     </div>
   );
@@ -45,115 +43,109 @@ const navItems = [
   { name: 'Calendar', path: '/calendar', icon: CalendarIcon },
   { name: 'Appointments', path: '/appointments', icon: CalendarCheck },
   { name: 'Customers', path: '/customers', icon: Users },
-  { name: 'Services', path: '/services', icon: Sparkles },
+  { name: 'Menu', path: '/services', icon: Sparkles },
   { name: 'Staff', path: '/staff', icon: UserCircle },
   { name: 'Reports', path: '/reports', icon: BarChart3 },
   { name: 'Settings', path: '/settings', icon: SettingsIcon },
 ];
 
-const Sidebar = ({ isOpen, setIsOpen }) => {
-  const { resetDemoData } = useAppContext();
+// Items specifically for the mobile bottom bar (Max 5 items usually for good UX)
+const mobileNavItems = [
+  { name: 'Home', path: '/dashboard', icon: LayoutDashboard },
+  { name: 'Calendar', path: '/calendar', icon: CalendarIcon },
+  { name: 'Book', path: '/appointments', icon: CalendarCheck },
+  { name: 'Menu', path: '/services', icon: Sparkles },
+  { name: 'Settings', path: '/settings', icon: SettingsIcon },
+];
 
-  const handleReset = () => {
-    if (window.confirm('Reset Bookly Demo?\n\nThis will remove your current changes and restore the original sample data.')) {
-      resetDemoData();
-    }
-  };
-
+const DesktopSidebar = () => {
   return (
-    <>
-      {/* Mobile overlay */}
-      {isOpen && (
-        <div 
-          className="fixed inset-0 bg-slate-900/50 z-30 lg:hidden"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
-
-      {/* Sidebar */}
-      <aside className={`
-        fixed top-0 left-0 z-40 h-screen w-64 pt-10
-        transition-transform duration-300 ease-in-out bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700
-        flex flex-col
-        ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-      `}>
-        <div className="flex items-center gap-3 px-6 pb-6">
-          <div className="bg-violet-600 p-2 rounded-lg text-white">
-            <CalendarCheck2 size={24} />
-          </div>
-          <div>
-            <h1 className="text-xl font-bold text-slate-900 dark:text-white leading-none tracking-tight">Bookly</h1>
-            <p className="text-[10px] text-slate-500 font-medium uppercase tracking-wider mt-1">Made Simple.</p>
-          </div>
+    <aside className="hidden lg:flex flex-col w-64 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border-r border-slate-200/50 dark:border-slate-800/50 shadow-[4px_0_24px_rgba(0,0,0,0.02)] h-[calc(100vh-44px)] z-40 sticky top-[44px]">
+      <div className="flex items-center gap-3 px-8 pt-8 pb-6">
+        <div className="bg-gradient-to-tr from-rose-600 to-rose-400 p-2.5 rounded-xl text-white shadow-lg shadow-rose-500/20">
+          <CalendarCheck2 size={24} strokeWidth={2.5} />
         </div>
+        <div>
+          <h1 className="text-2xl font-black text-slate-900 dark:text-white leading-none tracking-tight">Bookly</h1>
+        </div>
+      </div>
 
-        <nav className="flex-1 px-4 space-y-1 overflow-y-auto">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.name}
-              to={item.path}
-              onClick={() => setIsOpen(false)}
-              className={({ isActive }) => `
-                flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors
-                ${isActive 
-                  ? 'bg-violet-50 text-violet-700 dark:bg-violet-500/10 dark:text-violet-400' 
-                  : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-700/50 dark:hover:text-slate-200'}
-              `}
-            >
-              <item.icon size={18} />
-              {item.name}
-            </NavLink>
-          ))}
-        </nav>
-
-        <div className="p-4 border-t border-slate-200 dark:border-slate-700 m-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700">
-          <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Demo Account</div>
-          <button 
-            onClick={handleReset}
-            className="w-full text-left text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
+      <nav className="flex-1 px-4 space-y-1.5 overflow-y-auto pb-6">
+        {navItems.map((item) => (
+          <NavLink
+            key={item.name}
+            to={item.path}
+            className={({ isActive }) => `
+              flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold transition-all duration-200 active:scale-95
+              ${isActive 
+                ? 'bg-rose-50 text-rose-700 dark:bg-rose-500/15 dark:text-rose-400 shadow-sm' 
+                : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800/50 dark:hover:text-slate-200'}
+            `}
           >
-            Reset Demo
-          </button>
-        </div>
-      </aside>
-    </>
+            <item.icon size={20} strokeWidth={2} />
+            {item.name}
+          </NavLink>
+        ))}
+      </nav>
+    </aside>
+  );
+};
+
+const MobileBottomBar = () => {
+  return (
+    <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-t border-slate-200/50 dark:border-slate-800/50 z-50 pb-safe shadow-[0_-8px_24px_rgba(0,0,0,0.04)]">
+      <div className="flex justify-around items-center px-2 py-2">
+        {mobileNavItems.map((item) => (
+          <NavLink
+            key={item.name}
+            to={item.path}
+            className={({ isActive }) => `
+              flex flex-col items-center justify-center w-16 py-1.5 rounded-2xl transition-all duration-300 active:scale-90
+              ${isActive 
+                ? 'text-rose-600 dark:text-rose-400' 
+                : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'}
+            `}
+          >
+            <div className={`p-1.5 rounded-xl mb-1 transition-colors ${isActive ? 'bg-rose-50 dark:bg-rose-500/15' : 'bg-transparent'}`}>
+              <item.icon size={22} strokeWidth={isActive ? 2.5 : 2} />
+            </div>
+            <span className="text-[10px] font-semibold">{item.name}</span>
+          </NavLink>
+        ))}
+      </div>
+    </nav>
   );
 };
 
 const Layout = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-900">
+    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 font-sans selection:bg-rose-200 selection:text-rose-900">
       <DemoBanner />
       
-      <div className="flex-1 flex overflow-hidden">
-        <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
-        
-        <main className="flex-1 lg:ml-64 flex flex-col h-[calc(100vh-40px)] overflow-hidden">
-          {/* Mobile Header */}
-          <header className="lg:hidden bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-4 py-3 flex items-center justify-between z-20">
-            <div className="flex items-center gap-2">
-              <div className="bg-violet-600 p-1.5 rounded-md text-white">
-                <CalendarCheck2 size={20} />
-              </div>
-              <span className="font-bold text-slate-900 dark:text-white">Bookly</span>
-            </div>
-            <button 
-              onClick={() => setSidebarOpen(true)}
-              className="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
-            >
-              <Menu size={24} />
-            </button>
-          </header>
+      {/* Mobile Top Header */}
+      <header className="lg:hidden sticky top-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-800/50 px-5 py-3.5 flex items-center justify-between shadow-sm">
+        <div className="flex items-center gap-2.5">
+          <div className="bg-gradient-to-tr from-rose-600 to-rose-400 p-1.5 rounded-lg text-white shadow-md shadow-rose-500/20">
+            <CalendarCheck2 size={20} strokeWidth={2.5} />
+          </div>
+          <span className="font-black text-xl tracking-tight text-slate-900 dark:text-white">Bookly</span>
+        </div>
+        <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+          <UserCircle size={20} className="text-slate-500" />
+        </div>
+      </header>
 
-          {/* Main Content Area */}
-          <div className="flex-1 overflow-auto p-4 sm:p-6 lg:p-8">
-            <div className="max-w-7xl mx-auto">
-              <Outlet />
-            </div>
+      <div className="flex-1 flex overflow-hidden">
+        <DesktopSidebar />
+        
+        {/* Main Content Area */}
+        <main className="flex-1 overflow-auto h-[calc(100vh-44px)] lg:h-[calc(100vh-44px)] pb-24 lg:pb-0 scroll-smooth">
+          <div className="p-4 sm:p-6 lg:p-10 max-w-7xl mx-auto w-full">
+            <Outlet />
           </div>
         </main>
+
+        <MobileBottomBar />
       </div>
     </div>
   );
