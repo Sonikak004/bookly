@@ -10,7 +10,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AppProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/bookly">
         <App />
         <Toaster position="top-right" />
       </BrowserRouter>
